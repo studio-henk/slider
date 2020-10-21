@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+  <head>
+    <title>slider 001</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="slick.css"/>
+    <script type="text/javascript" src="jquery.min.js"></script>  
+    <script type="text/javascript" src="slick.min.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .row {
+        display: flex;
+        gap: 80px;
+        padding: 80px;
+      }
+
+      .col-md-6 {
+        width: 50%;
+        /* float: left; */
+      }
+
+      .slick-track {
+        height: 100%;
+      }
+
+      .slick-list {
+        /* width: 640px; */
+      }
+
+      .slick-arrow {
+        background: transparent;
+        appearance: none;
+        border: none;
+        z-index: 99;
+        position: absolute;
+        top: 50%;
+        height: 75%;
+        width: 25%;
+        opacity: 0;
+        font-size: 0;
+        transform: translateY(-50%);
+        /* transition: opacity 1s ease-in-out; */
+      }
+
+      .slick-arrow.slick-prev {
+        left: 0;
+        cursor: url(chevron_left-black-48dp.svg) 0 0, pointer;
+      }
+
+      .slick-arrow.slick-next {
+        right: 0;
+        cursor: url(chevron_right-black-48dp.svg), pointer;
+      }
+
+      .slick-arrow:hover {
+        opacity: 1;
+      }
+
+
+      .slider-large {
+        /* width: 640px;
+        height: 640px; */
+        /* display: flex; */
+        position: relative;
+      }
+
+      .slider-thumbs {
+        /* display: flex; */
+        /* width: 640px; */
+        /* flex-wrap: wrap; */
+        display: grid;
+        grid-template-columns: repeat( auto-fit, minmax(150px, 1fr) );
+        gap: 16px;
+      }
+
+      .nh-slide,
+      .thumb {
+        background-color: lightblue;
+      }
+
+      .thumb {
+        cursor: pointer;
+      }
+
+      .nh-slide img,
+      .thumb img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .resp-container {
+        position: relative;
+        overflow: hidden;
+        /* padding-top: 56.25%; */
+        padding-top: 100%;
+      }
+
+      .resp-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      #emersyaIframe {
+        /* display: none; */
+      }
+
+      .config-options {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 8px;
+      }
+
+      .config-options a,
+      .config-options a img {
+        display: block;
+      }
+
+      .config-options a {
+        text-decoration: none;
+      }
+
+      .config-options a.active {
+        border: 8px solid black;
+      }
+
+      .config-options a img {
+        max-width: 100%;
+      }
+
+
+    </style>
+  
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="slider-large">
+          <div id="nh-slide1" class="nh-slide"><img src="StudioHENK_SlotBench_01.jpg" alt="slot bench 01"></div>
+          <div id="nh-slide2" class="nh-slide"><img src="StudioHENK_SlotBench_02.jpg" alt="slot bench 02"></div>
+          <div id="nh-slide3" class="nh-slide"><img src="StudioHENK_SlotBench_04.jpg" alt="slot bench 04"></div>
+          <div id="nh-slide4" class="nh-slide"><img src="StudioHENK_SlotBench_05.jpg" alt="slot bench 05"></div>
+          <div id="nh-slide5" class="nh-slide"><img src="StudioHENK_SlotBench_08.jpg" alt="slot bench 08"></div>
+          <div id="nh-slide6" class="nh-slide"><img src="StudioHENK_SlotBench_10.jpg" alt="slot bench 10"></div>
+          <div id="nh-slide7" class="nh-slide"><img src="StudioHENK_SlotBench_12.jpg" alt="slot bench 12"></div>
+          <div id="nh-configimage" class="nh-slide"><img src="config.jpg" alt="slot bench config"></div>
+        </div>
+        <div class="controls">
+          <button class="slick-prev">prev</button>
+          <button class="slick-next">next</button>
+          <a href="#" class="config3d">configure in 3D</a>
+        </div>
+        <div class="slider-thumbs">
+          <div id="thumb1" class="thumb" data-slide="0"><img src="StudioHENK_SlotBench_01.jpg" alt="slot bench 01"></div>
+          <div id="thumb2" class="thumb" data-slide="1"><img src="StudioHENK_SlotBench_02.jpg" alt="slot bench 02"></div>
+          <div id="thumb3" class="thumb" data-slide="2"><img src="StudioHENK_SlotBench_04.jpg" alt="slot bench 04"></div>
+          <div id="thumb4" class="thumb" data-slide="3"><img src="StudioHENK_SlotBench_05.jpg" alt="slot bench 05"></div>
+          <div id="thumb5" class="thumb" data-slide="4"><img src="StudioHENK_SlotBench_08.jpg" alt="slot bench 08"></div>
+          <div id="thumb6" class="thumb" data-slide="5"><img src="StudioHENK_SlotBench_10.jpg" alt="slot bench 10"></div>
+          <div id="thumb7" class="thumb" data-slide="6"><img src="StudioHENK_SlotBench_12.jpg" alt="slot bench 12"></div>
+          <div id="nh-configimagethumb" class="thumb" data-slide="7"><img src="config.jpg" alt="slot bench config"></div>
+        </div>
+      </div>
+    <div class="col-md-6">
+      <h1>Slot Bank</h1>
+      <p>De Slot eettafelbank is een houten bankje met een zachte uitstraling. De ronde vormen van het onderstel vormen een mooi contrast met onze minimalistische stalen frames. De eettafelbank is verkrijgbaar in eikenhout.</p>
+      <p>Op zoek naar de veelzijdigheid van een bank, maar ook naar comfort? Voor onze collectie eettafelbanken ontwierpen we een comfortabel zitkussen dat je extra kunt bestellen. Het zitkussen is verkrijgbaar in verschillende stofferingen, zodat je zelf iets kunt kiezen wat in jouw interieur past.</p>
+      <h2>Configureer je Slot Bank</h2>
+      <ul class="config-options">
+        <li>
+          <a href="#" class="config active" data-imgsrc="config.jpg">
+            <img src="textures_oak_0002.jpg" alt="0002">
+            <span>Eiken gerookt gebeitst</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="config" data-imgsrc="config2.jpg">
+            <img src="oak_lak.jpg" alt="3062">
+            <span>Eiken hardwax olie naturel 3062</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+
+  <script type="text/javascript">
+  $(document).ready(function(){
+    console.log('hello jquery and friends');
+    $('.slider-large').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows: true,
+      draggable: false,
+      // prevArrow: $('.prev'),
+      // nextArrow: $('.next'),
+      initialSlide: 7
+    });
+
+    // hide 3d configurator
+    const config3dSlide = $('#nhslideconfig3d'); 
+    // console.log(config3dSlide);
+    config3dSlide.hide();
+
+    // Get the current slide
+    var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+    console.log('current Index: ' + currentLargeSlideIndex + ' current slide: ' + (currentLargeSlideIndex + 1));
+
+    // next slide click
+    $('.slick-next').click(function (e) {
+      var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+      // extra code for extra arrow buttons
+      if (this.parentElement.className === 'controls' ) {
+          $('.slider-large').slick('slickNext');
+      }
+    });
+
+    // prev slide click
+    $('.slick-prev').click(function (e) {
+      var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+      // extra code for extra arrow buttons
+      if (this.parentElement.className === 'controls' ) {
+          $('.slider-large').slick('slickPrev');
+      }
+    });
+
+    // thumbs controls click
+    $('.thumb[data-slide]').click(function (e) {
+      console.log('thumb clicked');
+      let currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+      let clickedThumbIndex = $(this).data('slide');
+      console.log("clickedThumbIndex: " + clickedThumbIndex + ' clicked Thumb: ' + (clickedThumbIndex + 1));
+
+      // send large slider to clicked thumb
+      if (currentLargeSlideIndex != clickedThumbIndex) {
+          $(".slider-large").slick('slickGoTo', clickedThumbIndex);
+      }
+    });
+
+    // On slide change
+    $('.slider-large').on('afterChange', function(event, slick, currentSlide, nextSlide){
+      console.log('currentSlideIndex: ' + currentSlide + ' Current Slide: ' + (currentSlide + 1));
+      // if (currentSlide === (slick.slideCount - 1)) {
+          
+      // } else {
+        
+      // }
+    });
+
+    // config options, img switcher
+    $('.config-options .config').click(function (e) {
+      e.preventDefault();
+      console.log(this);
+      // clear active
+      $('.config-options .config.active').removeClass('active');
+      // set active
+      $(this).addClass('active');
+      // get data-imgsrc
+      let imgSrc = this.dataset.imgsrc;
+      console.log(imgSrc);
+      // update big image
+      $('#nh-configimage img').attr('src', imgSrc);
+      // also for thumb
+      $('#nh-configimagethumb img').attr('src', imgSrc);
+      // go to config slide
+      let nhslideCount = $('.slick-slide').not('.slick-cloned').length;
+      console.log(nhslideCount);
+      $(".slider-large").slick('slickGoTo', nhslideCount - 1);
+    });
+  });
+    
+  </script>
+
+  </body>
+</html>
