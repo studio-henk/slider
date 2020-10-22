@@ -193,90 +193,97 @@
   
 
   <script type="text/javascript">
-  $(document).ready(function(){
-    console.log('hello jquery and friends');
+  /**
+ * @author Nirusu | nils hendriks <info@nirusu.me>
+ * @version 0.0.1
+ * @date 22 Oct 2020 14:45:11
+ * @file Manages the configurator carousel
+ */
+const mdlCarousel = {
+
+  init: function() {
+      // get number of slide in .slider-large
+      let initSlide = $('.nh-slide').not('.slick-cloned').length;
+      let initSlideIndex = initSlide - 1; 
+      
+      this.initCarousel(initSlideIndex);
+  },
+  initCarousel: function(initSlideIndex) {
     $('.slider-large').slick({
       slidesToShow: 1,
       slidesToScroll: 1,
       arrows: true,
       draggable: false,
-      // prevArrow: $('.prev'),
-      // nextArrow: $('.next'),
-      initialSlide: 7
+      initialSlide: initSlideIndex
     });
 
-    // hide 3d configurator
-    const config3dSlide = $('#nhslideconfig3d'); 
-    // console.log(config3dSlide);
-    config3dSlide.hide();
+    this.eventHandlers();
+  },
+  eventHandlers: function() {
+   // Get the current slide
+  var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+  console.log('current Index: ' + currentLargeSlideIndex + ' current slide: ' + (currentLargeSlideIndex + 1));
 
-    // Get the current slide
+  // next slide click
+  $('.slick-next').click(function (e) {
     var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
-    console.log('current Index: ' + currentLargeSlideIndex + ' current slide: ' + (currentLargeSlideIndex + 1));
-
-    // next slide click
-    $('.slick-next').click(function (e) {
-      var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
-      // extra code for extra arrow buttons
-      if (this.parentElement.className === 'controls' ) {
-          $('.slider-large').slick('slickNext');
-      }
-    });
-
-    // prev slide click
-    $('.slick-prev').click(function (e) {
-      var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
-      // extra code for extra arrow buttons
-      if (this.parentElement.className === 'controls' ) {
-          $('.slider-large').slick('slickPrev');
-      }
-    });
-
-    // thumbs controls click
-    $('.thumb[data-slide]').click(function (e) {
-      console.log('thumb clicked');
-      let currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
-      let clickedThumbIndex = $(this).data('slide');
-      console.log("clickedThumbIndex: " + clickedThumbIndex + ' clicked Thumb: ' + (clickedThumbIndex + 1));
-
-      // send large slider to clicked thumb
-      if (currentLargeSlideIndex != clickedThumbIndex) {
-          $(".slider-large").slick('slickGoTo', clickedThumbIndex);
-      }
-    });
-
-    // On slide change
-    $('.slider-large').on('afterChange', function(event, slick, currentSlide, nextSlide){
-      console.log('currentSlideIndex: ' + currentSlide + ' Current Slide: ' + (currentSlide + 1));
-      // if (currentSlide === (slick.slideCount - 1)) {
-          
-      // } else {
-        
-      // }
-    });
-
-    // config options, img switcher
-    $('.config-options .config').click(function (e) {
-      e.preventDefault();
-      console.log(this);
-      // clear active
-      $('.config-options .config.active').removeClass('active');
-      // set active
-      $(this).addClass('active');
-      // get data-imgsrc
-      let imgSrc = this.dataset.imgsrc;
-      console.log(imgSrc);
-      // update big image
-      $('#nh-configimage img').attr('src', imgSrc);
-      // also for thumb
-      $('#nh-configimagethumb img').attr('src', imgSrc);
-      // go to config slide
-      let nhslideCount = $('.slick-slide').not('.slick-cloned').length;
-      console.log(nhslideCount);
-      $(".slider-large").slick('slickGoTo', nhslideCount - 1);
-    });
+    // extra code for extra arrow buttons
+    if (this.parentElement.className === 'controls' ) {
+        $('.slider-large').slick('slickNext');
+    }
   });
-    
+
+  // prev slide click
+  $('.slick-prev').click(function (e) {
+    var currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+    // extra code for extra arrow buttons
+    if (this.parentElement.className === 'controls' ) {
+        $('.slider-large').slick('slickPrev');
+    }
+  });
+
+  // thumbs controls click
+  $('.thumb[data-slide]').click(function (e) {
+    console.log('thumb clicked');
+    let currentLargeSlideIndex = $('.slider-large').slick('slickCurrentSlide');
+    let clickedThumbIndex = $(this).data('slide');
+    console.log('clickedThumbIndex: ' + clickedThumbIndex + ' clicked Thumb: ' + (clickedThumbIndex + 1));
+
+    // send large slider to clicked thumb
+    if (currentLargeSlideIndex != clickedThumbIndex) {
+        $('.slider-large').slick('slickGoTo', clickedThumbIndex);
+    }
+  }); 
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+//console.log("DOM fully loaded and parsed");
+mdlCarousel.init();
+});  
+  </script>
+
+  <script>
+    // config options, img switcher
+  $('.config-options .config').click(function (e) {
+    e.preventDefault();
+    console.log(this);
+    // clear active
+    $('.config-options .config.active').removeClass('active');
+    // set active
+    $(this).addClass('active');
+    // get data-imgsrc
+    let imgSrc = this.dataset.imgsrc;
+    console.log(imgSrc);
+    // update big image
+    $('#nh-configimage img').attr('src', imgSrc);
+    // also for thumb
+    $('#nh-configimagethumb img').attr('src', imgSrc);
+    // go to config slide
+    let nhslideCount = $('.slick-slide').not('.slick-cloned').length;
+    console.log(nhslideCount);
+    $(".slider-large").slick('slickGoTo', nhslideCount - 1);
+  });
   </script>
 
   </body>
